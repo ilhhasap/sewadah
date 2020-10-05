@@ -22,7 +22,7 @@ const conn = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'hospital'
+    database: ''
 });
 conn.connect((err) => {
     if (err)
