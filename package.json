@@ -2,9 +2,11 @@
   "name": "projek-pkk",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app",
+    "dev": "nodemon app"
   },
   "repository": {
     "type": "git",
@@ -17,6 +19,18 @@
   },
   "homepage": "https://github.com/ilhhasap/sewadah-app#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "circular-json": "^0.5.9",
+    "cookie-parser": "^1.4.5",
+    "cookie-session": "^1.4.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-flash": "0.0.2",
+    "express-myconnection": "^1.0.4",
+    "express-session": "^1.17.1",
+    "express-validator": "^6.6.1",
+    "method-override": "^3.0.0",
+    "moment": "^2.29.0",
+    "mysql": "^2.18.1",
+    "uuid": "^3.4.0"
   }
 }
