@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 07, 2020 at 03:09 PM
+-- Generation Time: Oct 09, 2020 at 05:32 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -35,6 +35,40 @@ CREATE TABLE `admin` (
   `password` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`idAdmin`, `usernameAdmin`, `nameAdmin`, `password`) VALUES
+(1, 'efendiputra', 'efendi putra p', '1234567a');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `berita`
+--
+
+CREATE TABLE `berita` (
+  `idBerita` int(11) NOT NULL,
+  `judulBerita` varchar(128) NOT NULL,
+  `gambarBerita` varchar(64) NOT NULL,
+  `isiBerita` varchar(255) NOT NULL,
+  `tanggalBerita` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `catalog_pengguna`
+--
+
+CREATE TABLE `catalog_pengguna` (
+  `idCatalog` int(11) NOT NULL,
+  `judulCatalog` varchar(128) NOT NULL,
+  `gambarCatalog` varchar(128) NOT NULL,
+  `idPengguna` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- --------------------------------------------------------
 
 --
@@ -44,7 +78,8 @@ CREATE TABLE `admin` (
 CREATE TABLE `link` (
   `idLink` int(11) NOT NULL,
   `namaLink` varchar(64) NOT NULL,
-  `alamatLink` varchar(64) NOT NULL
+  `alamatLink` varchar(64) NOT NULL,
+  `idPengguna` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -59,20 +94,9 @@ CREATE TABLE `pengguna` (
   `passwordPengguna` varchar(64) NOT NULL,
   `emailPengguna` varchar(64) NOT NULL,
   `namaPengguna` varchar(64) NOT NULL,
-  `profilPengguna` varchar(64) NOT NULL,
-  `idProduk` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `produk`
---
-
-CREATE TABLE `produk` (
-  `idProduk` int(11) NOT NULL,
-  `idLink` int(11) NOT NULL,
-  `gambarProduk` varchar(64) NOT NULL
+  `visitorPengguna` int(11) NOT NULL,
+  `thumbPengguna` varchar(64) NOT NULL,
+  `idLink` int(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -86,24 +110,25 @@ ALTER TABLE `admin`
   ADD PRIMARY KEY (`idAdmin`);
 
 --
+-- Indexes for table `catalog_pengguna`
+--
+ALTER TABLE `catalog_pengguna`
+  ADD PRIMARY KEY (`idCatalog`),
+  ADD KEY `idPengguna` (`idPengguna`);
+
+--
 -- Indexes for table `link`
 --
 ALTER TABLE `link`
-  ADD PRIMARY KEY (`idLink`);
+  ADD PRIMARY KEY (`idLink`),
+  ADD KEY `idPengguna` (`idPengguna`);
 
 --
 -- Indexes for table `pengguna`
 --
 ALTER TABLE `pengguna`
   ADD PRIMARY KEY (`idPengguna`),
-  ADD KEY `idProduk` (`idProduk`);
-
---
--- Indexes for table `produk`
---
-ALTER TABLE `produk`
-  ADD PRIMARY KEY (`idProduk`),
-  ADD KEY `idLink` (`idLink`);
+  ADD KEY `idProduk` (`idLink`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -113,7 +138,13 @@ ALTER TABLE `produk`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `idAdmin` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idAdmin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `catalog_pengguna`
+--
+ALTER TABLE `catalog_pengguna`
+  MODIFY `idCatalog` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `link`
@@ -126,12 +157,6 @@ ALTER TABLE `link`
 --
 ALTER TABLE `pengguna`
   MODIFY `idPengguna` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `produk`
---
-ALTER TABLE `produk`
-  MODIFY `idProduk` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
