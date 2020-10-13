@@ -131,7 +131,7 @@ body {
     width: 130px;
     height: 50px;
     border-radius: 2px 30px 30px 30px;
-    background-color: #32CBFF;
+    background-color: #35b6e1;
     color: #FCFCFC;
     font-weight: bold;
 }
@@ -143,4 +143,33 @@ body {
     font-family: 'Gilroy';
     font-weight: 600;
     color: #858585;
+}
+
+/* CSS MODAL LOGIN */
+.modal-title-login {
+    color: #21244d;
+    font-family: 'Gilroy';
+}
+.modal-body-login .username label, 
+.modal-body-login .password label {
+    font-family: 'Nutmeg';
+    font-weight: 500;
+}
+.modal-body-login .username input, 
+.modal-body-login .password input {
+    border-radius: 14px;
+    height: 45px;
+    border: 2px solid #707070;
+}
+.modal-footer-login button {
+    border-radius: 2px 30px 30px 30px;
+    background-color: #35b6e1;
+    color: #ededed;
+    font-family: 'Gilroy';
+    font-weight: bold;
+    transition: all ease-out .3s;
+}
+.modal-footer-login button:hover {
+    background-color: #fcfcfc;
+    color: #707070;
 }
