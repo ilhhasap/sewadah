@@ -13,36 +13,36 @@
 
     <!-- {{!-- CSS --}} -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="/public/css/style-1.css">
+    <link rel="stylesheet" href="/css/style.css">
     <!-- {{!-- font awesome --}} -->
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#"><img src="/public/img/Asset 1.png" alt="" width="100"></a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+      <div class="container">
+        <a class="navbar-brand" href="#"><img src="/img/Asset 1.png" alt="" width="130"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
+          <ul class="navbar-nav ml-auto mr-auto nav-links text-center">
             <li class="nav-item">
-              <a class="nav-link" href="#">News</a>
+              <a class="nav-link mr-4" href="#">News</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Contact</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Help</a>
+              <a class="nav-link ml-4" href="#">Help</a>
             </li>
           </ul>
+            <ul class="navbar-nav nav-btn">
+              <li class="nav-item">
+                <a href=""><button class="btn-login">Log In</button></a>
+              </li>
+              <li class="nav-item">
+                <a href=""><button class="btn-signup">Sign Up</button></a>
+              </li>
+            </ul>
         </div>
-        <div class="nav-btn">
-          <ul>
-            <li>
-              <a href=""><button>login</button></a>
-            </li>
-            <li>
-              <a href=""><button>Sign Up</button></a>
-            </li>
-          </ul>
-        </div>
+      </div>
       </nav>

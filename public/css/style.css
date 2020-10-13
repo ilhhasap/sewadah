@@ -6,7 +6,6 @@
 }
 body {
     overflow-x: hidden;
-    opacity: 0;
 }
 
 .navbar {
@@ -34,17 +33,18 @@ body {
     width: 100px;
     height: 40px;
     border-radius: 14px;
-    background-color: #32CBFF;
+    background-color: #35b6e1;
     color: #FCFCFC;
     font-weight: bold;
+    border: none;
 }
 
 /* JUMBOTRON */
 .jumbotron1 {
     background-color: #FeFeFe !important;
 }
-.jumbotron1 .row {
-    padding-top: 40px;
+.jumbotron1 .row .col {
+    padding-top: 10vh;
 }
 .jumbotron1 .slogan-1 {
     font-family: 'Gilroy';
@@ -56,7 +56,7 @@ body {
 .jumbotron1 .slogan-1 span {
     font-family: 'Gilroy';
     font-weight: bold;
-    color: #32CBFF;
+    color: #35b6e1;
 }
 .jumbotron1 .slogan-2 {
     font-family: 'Gilroy';
@@ -68,7 +68,7 @@ body {
 .jumbotron1 .slogan-2 span {
     font-family: 'Gilroy';
     font-weight: bold;
-    color: #32CBFF;
+    color: #35b6e1;
 }
 .jumbotron1 .lead {
     padding: 0 40px;
@@ -118,12 +118,6 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
-}
-.search_wrap .search_box .btn.btn_common2 span {
-    position: absolute;
-    top: 50%;
-    left: 150%;
     transform: translate(-50%,-50%);
 }
 
