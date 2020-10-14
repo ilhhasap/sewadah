@@ -24,6 +24,7 @@ router.use(session({
 router.get("/", (req, res) => {
         res.render("home", {
             title: "Halaman Home",
+            sessionSignUp : req.session.someoneSignUp
         })
 });
 
