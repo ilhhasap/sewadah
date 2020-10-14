@@ -6,7 +6,9 @@ const conn = mysql.createConnection(
 );
 const path = require('path')
 const Cryptr = require('cryptr')
+const cryptr = new Cryptr('myTotalySecretKey');
 const { body, validationResult } = require('express-validator');
+const Swal = require('sweetalert2')
 
 // connect ke database
 conn.connect(err => {
@@ -17,39 +19,36 @@ conn.connect(err => {
 
 
 router.post("/", [
-    body('usernamePengguna').isLength({ min: 8 }),
-    body('passwordPengguna').isLength({ min: 8 }).withMessage('minimal 8 karakter'),
-    body('emailPengguna').normalizeEmail().isEmail(),
-    body('namaPengguna').isAlpha().trim()
+    usernamePengguna = body('usernamePengguna').isLength({ min: 8 }),
+    passwordPengguna = body('passwordPengguna').isLength({ min: 8 }).withMessage('minimal 8 karakter'),
+    emailPengguna = body('emailPengguna').normalizeEmail().isEmail(),
+    namaPengguna = body('namaPengguna').isAlpha().trim(),
 ], (req, res) => {
+    const errors = validationResult(req)
     const today = new Date()
-    const encrypted = cryptr.encrypt(req.body.password)
+    const encrypted = cryptr.encrypt(req.body.passwordPengguna)
+    if (!errors.isEmpty() || body('confirm_password') != body('passwordPengguna')) {
+        // return res.status(400).json({ errors: errors.array() });
+        req.session.someoneSignUp = false
+        res.redirect('/')
+      }
 
     const users = {
         "idPengguna" : '',
         "usernamePengguna" : req.body.namaPengguna,
-        "passwordPengguna" : req.body.password,
-        "emailPengguna" : req.body.password,
-        "namaPengguna" : req.body.password,
+        "passwordPengguna" : encrypted,
+        "emailPengguna" : req.body.emailPengguna,
+        "namaPengguna" : req.body.namaPengguna,
         "created_at":today,
     }
 
-    conn.query('INSERT INTO pengguna SET ?', users, (error, results, fields) => {
-        if(error) {
-            res.json({
-                status : false,
-                message : 'there are some error with query',
-            })
-        } else {
-            res.json({
-                status : true,
-                data : results,
-                message : 'user registered sucessfully'
-            })
-            res.redirect('/')
-        }
-    }
-    )
+    const query = conn.query('INSERT INTO pengguna SET ?', users, (error, results, fields) => {
+        if (error)
+            throw error
+        req.session.someoneSignUp = true
+        res.redirect("/")
+        res.end()
+    })
 });
 
-module.exports = router;
+module.exports = router
