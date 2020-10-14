@@ -1,4 +1,14 @@
 <%- include('./layout/header.ejs') -%>
+
+<% if( sessionSignUp == true ) { %>
+    <script>
+        Swal.fire('Anda Berhasil Sign Up', 'Silahkan Login', 'success')
+    </script>
+    <% } else if( sessionSignUp == false ) { %>
+        <script>
+        Swal.fire('Anda Gagal Sign Up', 'Harap Coba Lagi', 'error')
+    </script>
+        <% } %>
     <div class="jumbotron jumbotron1 jumbotron-fluid">
         <div class="container">
             <div class="row">
