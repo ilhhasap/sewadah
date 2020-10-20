@@ -82,23 +82,23 @@ const today = new Date()
 
 
 router.post('/login', (req, res) => {
-    const usernameEmail = req.body.usernameEmail
+    const usernamePengguna = req.body.usernamePengguna
     const passwordPengguna = req.body.passwordPengguna
-    if(usernameEmail.isEmail())
-        const emailPengguna = req.body.usernameEmail
-        else if(!usernameEmail.isEmail())
-        const usernamePengguna = req.body.usernameEmail
-    if (username && password) {
-        conn.query("SELECT * FROM pengguna WHERE (usernamePengguna = ? OR emailPengguna = ?) AND passwordPengguna = ?",[usernameEmail,usernameEmail, passwordPengguna],  (err, results, fields) => {
+    const encrypted = cryptr.encrypt(req.body.passwordPengguna)
+    if (usernamePengguna && passwordPengguna) {
+        conn.query('SELECT * FROM pengguna WHERE usernamePengguna = ? AND passwordPengguna = ?',[usernamePengguna, encrypted],  (err, results, fields) => {
             if (results.length > 0) {
+                req.session.login = true
+                req.session.username = usernamePengguna
                 console.log('berhasil login')
+                res.redirect('/')
             } else {
-                res.send('username dan password salah! <br> <a class="btn btn-primary" href="/login" role="button">kembali login</a> ')
+                res.redirect('/auth/login')
             }
             res.end()
         })
     } else {
-        res.send('tolong masukan username dan password!  <br> <a href="/login">kembali login</a>')
+        res.send('tolong masukan username dan password!  <br> <a href="/auth/login">kembali login</a>')
         res.end()
     }
 })
