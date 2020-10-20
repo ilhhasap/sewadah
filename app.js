@@ -17,23 +17,11 @@ app.use(express.static(path.join(__dirname, '/public')))
 app.set('views', path.join(__dirname, '/views'))
 app.set('view engine', 'ejs')
 
-// Koneksi Database
-// const conn = mysql.createConnection({
-//     host: 'localhost',
-//     user: 'root',
-//     password: '',
-//     database: ''
-// });
-// conn.connect((err) => {
-//     if (err)
-//         throw err;
-//     console.log('Mysql Connected...');
-// });
-
 
 // LINK
 app.use('/', require('./routes/home.js'))
-app.use('/login', require('./routes/login.js'))
+app.use('/auth', require('./routes/login.js'))
+
 
 app.listen(3000, () => {
     console.log('Server running at port 3000: http://127.0.0.1:3000')
