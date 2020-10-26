@@ -51,11 +51,11 @@ router.post("/signup", [
 
 const username = req.body.usernamePengguna
 const today = new Date()
-        const encrypted = cryptr.encrypt(req.body.passwordPengguna)
+        // const encrypted = cryptr.encrypt(req.body.passwordPengguna)
         var users = {
                   "idPengguna" : '',
                   "usernamePengguna" : req.body.usernamePengguna,
-                  "passwordPengguna" : encrypted,
+                  "passwordPengguna" : req.body.passwordPengguna,
                   "emailPengguna" : req.body.emailPengguna,
                   "namaPengguna" : req.body.namaPengguna,
                   "created_at": today,
@@ -84,9 +84,12 @@ const today = new Date()
 router.post('/login', (req, res) => {
     const usernamePengguna = req.body.usernamePengguna
     const passwordPengguna = req.body.passwordPengguna
-    const encrypted = cryptr.encrypt(req.body.passwordPengguna)
+    // ? untuk encrypt password dari inputan
+    //  const encryptPassword = cryptr.encrypt(req.body.passwordPengguna)
+    //  const decryptPassword = cryptr.decrypt(encryptPassword)
+     // * cek username dan password tidak kosong
     if (usernamePengguna && passwordPengguna) {
-        conn.query('SELECT * FROM pengguna WHERE usernamePengguna = ? AND passwordPengguna = ?',[usernamePengguna, encrypted],  (err, results, fields) => {
+        conn.query('SELECT * FROM pengguna WHERE usernamePengguna = ? AND passwordPengguna = ?',[usernamePengguna, passwordPengguna],  (err, results, fields) => {
             if (results.length > 0) {
                 req.session.login = true
                 req.session.username = usernamePengguna
@@ -103,6 +106,10 @@ router.post('/login', (req, res) => {
     }
 })
 
-
+router.get('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        res.redirect('/')
+    })
+})
 
 module.exports = router

@@ -15,7 +15,21 @@
 
                         <div class="search_wrap search_wrap_6">
                             <div class="search_box">
-                                <input type="text" class="input" placeholder="/ tulis namamu...">
+                                <% if(sessionLogin)  { %>
+                                <% if(sessionUsername)  { %>
+                                <input type="text" class="input" value="/ <%= sessionUsername%>" disabled>
+                                    <div class="btn btn-common">
+                                        <span>
+                                            <img src="/img/Asset 1.png" width="100vh" alt=""></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="/admin %>">
+                                <button class="btn-beriwadah">Beri Wadah</button>
+                            </a>
+                                <% } %>
+                                <% } else { %>
+                                    <input type="text" class="input" placeholder="/ tulis namamu...">
                                     <div class="btn btn-common">
                                         <span>
                                             <img src="/img/Asset 1.png" width="100vh" alt=""></span>
@@ -23,6 +37,7 @@
                                     </div>
                                 </div>
                                 <button class="btn-beriwadah">Beri Wadah</button>
+                                    <% } %>
                             </div>
                             <div class="col col-md-6">
                                 <img src="/img/wfh_9.svg" alt="">
@@ -31,7 +46,3 @@
                     </div>
                 </div>
                 <%- include('./layout/footer.ejs') -%>
-<div class="">
-    <h1>hai cuk</h1>
-</div>
-<%- include('./layout/footer.ejs') -%>

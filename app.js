@@ -21,6 +21,7 @@ app.set('view engine', 'ejs')
 // LINK
 app.use('/', require('./routes/home.js'))
 app.use('/auth', require('./routes/login.js'))
+app.use('/admin', require('./routes/admin.js'))
 
 
 app.listen(3000, () => {

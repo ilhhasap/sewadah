@@ -23,21 +23,26 @@ body {
     width: 100px;
     height: 40px;
     border-radius: 14px;
-    border: 2px solid #707070;
+    /* border: 2px solid #707070; */
+    border: none;
     margin-right: 10px;
     background-color: transparent;
 }
 .nav-btn .btn-signup {
-    padding: 8px;
+    padding: 10px;
     font-family: 'Poppins';
     font-size: 14px;
-    width: 100px;
+    width: 110px;
     height: 40px;
     border-radius: 14px;
     background-color: #35b6e1;
-    color: #FCFCFC;
+    color: #f3f3f3;
     font-weight: bold;
     border: none;
+}
+.nav-btn .btn-signup span {
+    margin-right: 5px;
+    background-color: transparent;
 }
 
 /* JUMBOTRON */

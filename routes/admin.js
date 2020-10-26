@@ -22,8 +22,8 @@ router.use(session({
 }))
 
 router.get("/", (req, res) => {
-        res.render("home", {
-            title: "Home - Sewadah",
+        res.render("admin", {
+            title:  "Admin - Sewadah",
             sessionLogin : req.session.login,
             sessionUsername : req.session.username
         })

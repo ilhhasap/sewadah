@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="icon" type="image/png" href="/img/logo.ico"/>
     <!-- {{!-- font awesome --}} -->
+    
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
@@ -37,94 +38,32 @@
             </li>
           </ul>
             <ul class="navbar-nav nav-btn">
+              <% if(sessionLogin) { %>
+                <% if(sessionUsername) { %>
               <li class="nav-item">
-                <a href="auth/login" ><button class="btn-login">Log In</button></a>
-
-               
+                <a href="auth/logout" ><button class="btn-login">Log Out</button></a>
               </li>
               <li class="nav-item">
-                <a href="auth/signup"><button class="btn-signup">Sign Up</button></a>
+                <a href="/admin">
+                <button type="button" class="btn btn-signup">
+                  <span class="badge badge-light"><img src="/img/icons/user.png" width="15"></span> Admin 
+                </button>
+                </a>
               </li>
+              <% } %>
+              <% } else { %>
+                <li class="nav-item">
+                  <a href="auth/login" ><button class="btn-login">Log In</button></a>
+  
+                 
+                </li>
+                <li class="nav-item">
+                  <a href="auth/signup"><button class="btn-signup">Sign Up</button></a>
+                </li>
+                <% } %>
             </ul>
         </div>
       </div>
       </nav>
 
-       <!-- Modal LOGIN -->
-       <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-       aria-hidden="true">
-       <div class="modal-dialog" role="document">
-           <div class="modal-content">
-               <div class="modal-header justify-content-center">
-                   <h3 class="modal-title font-weight-bold modal-title-login" id="exampleModalLabel">Login</h3>
-               </div>
-               <div class="modal-body mt-4 modal-body-login">
-   
-                   <form action="/" method="post">
-                       <div class="form-group col-md-7 m-auto text-center username">
-                           <label for="inputPassword4">Username</label>
-                           <input type="text" class="form-control" name="usernamePengguna" required>
-                       </div>
-                       
-                       <div class="form-group col-md-7 m-auto text-center password pt-4">
-                           <label for="inputPassword4">Password</label>
-                           <input type="password" class="form-control" name="passwordPengguna" required>
-                       </div>
-                       <div class="modal-footer mt-5 modal-footer-login text-center justify-content-center">
-                           <button type="submit" class="btn btn-lg btn-block" name="tambah">Login</button>
-                       </div>
-               </div>
-               </form>
-   
-           </div>
-       </div>
-   </div>
-<!-- AKHIR MODAL LOGIN -->
-       <!-- Modal SIGNUP -->
-       <div class="modal fade" id="modalSignUp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-       aria-hidden="true">
-       <div class="modal-dialog" role="document">
-           <div class="modal-content">
-               <div class="modal-header justify-content-center">
-                   <h3 class="modal-title font-weight-bold" id="exampleModalLabel">Sign Up</h3>
-               </div>
-               <div class="modal-body">
-   
-                   <form action="/login" method="post">
-                    <div class="form-group font-weight-bold">
-                      <label for="inputPassword4">Nama Lengkap</label>
-                      <input type="text" class="form-control" name="namaPengguna" required>
-                  </div>
-                    <div class="form-row">
-                       <div class="form-group col-md-6 font-weight-bold">
-                           <label for="inputPassword4">Username</label>
-                           <input type="text" class="form-control" name="usernamePengguna" required>
-                       </div>
-                       <div class="form-group col-md-6 font-weight-bold">
-                           <label for="inputPassword4">Email</label>
-                           <input type="text" class="form-control" name="emailPengguna" required>
-                       </div>
-                      </div>
-
-
-                      <div class="form-row">
-                        <div class="form-group col-md-6 font-weight-bold">
-                          <label for="inputPassword4">Password</label>
-                          <input type="password" class="form-control" name="passwordPengguna" required>
-                      </div>
-                      <div class="form-group col-md-6 font-weight-bold">
-                          <label for="inputPassword4">Confirm Password</label>
-                          <input type="password" class="form-control" name="confirm_password" required>
-                      </div>
-                      </div>
-                       
-                       <div class="modal-footer">
-                           <button type="submit" class="btn btn-danger btn-lg btn-block font-weight-bold" name="login">Sign Up</button>
-                       </div>
-               </div>
-               </form>
-   
-           </div>
-       </div>
-   </div>
 <!-- AKHIR MODAL SIGNUP -->
