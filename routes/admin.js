@@ -22,11 +22,15 @@ router.use(session({
 }))
 
 router.get("/", (req, res) => {
+    if(req.session.login && req.session.username) {
         res.render("admin", {
             title:  "Admin - Sewadah",
             sessionLogin : req.session.login,
             sessionUsername : req.session.username
         })
+    } else {
+        res.redirect('/')
+    }
 });
 
 // router.post("/", (req, res) => {
