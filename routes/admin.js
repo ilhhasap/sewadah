@@ -22,15 +22,23 @@ router.use(session({
 }))
 
 router.get("/", (req, res) => {
+    const sessionUsername = req.session.username
+    // const dataPengguna = `SELECT pengguna.*, catalog_pengguna.*, link.* FROM pengguna INNER JOIN catalog_pengguna.id_pengguna = pengguna.id_pengguna INNER JOIN link.id_pengguna = pengguna.id_pengguna WHERE usernamePengguna = ${sessionUsername}`
+    const dataPengguna = `SELECT * FROM pengguna WHERE usernamePengguna = ${sessionUsername}`
+    let query = conn.query(dataPengguna, (err, dataPengguna) => {
+        if (err) 
+        throw err
     if(req.session.login && req.session.username) {
         res.render("admin", {
             title:  "Admin - Sewadah",
             sessionLogin : req.session.login,
-            sessionUsername : req.session.username
+            sessionUsername, dataPengguna
         })
     } else {
         res.redirect('/')
     }
+})
+
 });
 
 // router.post("/", (req, res) => {

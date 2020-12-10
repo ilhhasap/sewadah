@@ -72,7 +72,7 @@ const today = new Date()
         if (error)
             throw error
             //jika berhasil redirect ke login dan diberi alert
-        res.redirect('/auth/login')
+        res.redirect('/')
         next()
     })   
 }
@@ -91,12 +91,17 @@ router.post('/login', (req, res) => {
     if (usernamePengguna && passwordPengguna) {
         conn.query('SELECT * FROM pengguna WHERE usernamePengguna = ? AND passwordPengguna = ?',[usernamePengguna, passwordPengguna],  (err, results, fields) => {
             if (results.length > 0) {
+                Swal.fire(
+                    'Deleted!',
+                    'Your imaginary file has been deleted.',
+                    'success'
+                  )
                 req.session.login = true
                 req.session.username = usernamePengguna
                 console.log('berhasil login')
-                res.redirect('/')
+                res.redirect('/admin')
             } else {
-                res.redirect('/auth/login')
+                res.redirect('/')
             }
             res.end()
         })
