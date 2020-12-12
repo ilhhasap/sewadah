@@ -1,17 +1,18 @@
 const express = require("express");
+const expressValidator = require("express-validator");
 const router = express.Router();
 const mysql = require("mysql");
 const conn = mysql.createConnection(
     {host: "localhost", user: "root", password: "", database: "sewadah"}
 );
 const path = require('path')
-const { body, validationResult } = require('express-validator');
 const Swal = require('sweetalert2')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const crypto = require('crypto')
 const flash = require('express-flash')
 const sessionStore = new session.MemoryStore
+const { check, validationResult } = require('express-validator');
 
 // connect ke database
 conn.connect(err => {
@@ -44,21 +45,28 @@ router.get("/", (req, res) => {
 
 router.post("/signup", [
     // validasi per input
-    body('usernamePengguna', 'minimal 8 karakter').isLength({ min: 8 }).escape(),
-    body('passwordPengguna', 'minimal 8 karakter').isLength({ min: 8 }).escape(),
-    body('emailPengguna', 'email gak valid').isEmail().escape(),
-    body('namaPengguna',).escape(),
+    check('usernamePengguna', 'Username hanya mengandung angka/huruf').isLength({ min: 8 }).isAlphanumeric().escape().trim(),
+    check('passwordPengguna', 'Password minimal 8 karakter').isLength({ min: 8 }).escape().trim(),
+    check('emailPengguna', 'email tidak valid').isEmail().escape().trim(),
+    check('namaPengguna','Nama harus berupa huruf').isAlpha().escape().trim(),
 ], (req, res, next) => {
 
     const errors = validationResult(req);
     // cek apakah validasi berhasil
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+    //  * jika validasi ada yang salah, beri pesan gagal 
+    // return res.status(400).json({ errors: errors.array() });
+    req.session.sessionFlash = {
+        type: 'danger',
+        messageTitle: 'Ada inputan yang salah, ',
+        message: 'Harap Coba lagi!'
+    }
+    return res.redirect('/')
 }
-
-const username = req.body.usernamePengguna
 const today = new Date()
+    if(req.body.passwordPengguna == req.body.confirmPassword) {
         // const encrypted = cryptr.encrypt(req.body.passwordPengguna)
+        const usernamePengguna = req.body.usernamePengguna
         var users = {
                   "idPengguna" : '',
                   "usernamePengguna" : req.body.usernamePengguna,
@@ -67,33 +75,42 @@ const today = new Date()
                   "namaPengguna" : req.body.namaPengguna,
                   "created_at": today,
               }
-   let query = conn.query("SELECT * FROM pengguna WHERE usernamePengguna = ?", [username],  (err, result) => {
-    //    cek apa username sudah ada di DB
-    if (!err && (result.length > 0)) {
-          // jika gagal redirect harus sign up lagi
-    // diisi alert
+   let query = conn.query("SELECT * FROM pengguna WHERE usernamePengguna = ?", [usernamePengguna],  (err, result) => {
+    //  *  cek apa username sudah ada di DB
+    if (result.length > 0) {
+    // * jika username sudah ada, tampil pesan gagal dan redirect ke home lagi
     req.session.sessionFlash = {
         type: 'danger',
-        message: 'Gagal Register!'
+        messageTitle: 'Maaf, ',
+        message: 'Username sudah digunakan!'
     }
-    res.redirect('/')
-
-    next()
+   return res.redirect('/')
 } else {
     conn.query('INSERT INTO pengguna SET ?', users, (error, results, fields) => {
         if (error)
             throw error
-            //jika berhasil redirect ke login dan diberi alert
+    // * jika berhasil semua, redirect ke login dan diberi pesan berhasil
             req.session.sessionFlash = {
                 type: 'success',
-                message: 'Berhasil Register!, silahkan Login...'
+                messageTitle: 'Berhasil Register, ',
+                message: 'Login untuk melanjutkan!'
             }
             res.redirect('/')
         next()
     })   
 }
-
 })
+
+    } else {
+        req.session.sessionFlash = {
+            type: 'warning',
+            messageTitle: 'Password Tidak sama, ',
+            message: 'Coba lagi!'
+        }
+        res.redirect('/')
+    }
+
+    
 })
 
 
@@ -109,9 +126,19 @@ router.post('/login', (req, res) => {
             if (results.length > 0) {
                 req.session.login = true
                 req.session.usernamePengguna = usernamePengguna
-                console.log('berhasil login')
-                res.redirect('/admin')
+                req.session.idPengguna = results[0].idPengguna
+                req.session.sessionFlash = {
+                    type: 'success',
+                    messageTitle: 'Yeayy, ',
+                    message: 'Kamu berhasil Login!'
+                }
+                res.redirect('/')
             } else {
+                req.session.sessionFlash = {
+                    type: 'danger',
+                    messageTitle: 'Waduhhh, ',
+                    message: 'Coba lagi yaa!'
+                }
                 res.redirect('/')
             }
             res.end()

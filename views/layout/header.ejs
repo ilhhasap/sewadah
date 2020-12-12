@@ -16,20 +16,23 @@
     <link rel="stylesheet" href="/dist/css/style.css">
     <link rel="stylesheet" href="/dist/css/style.min.css">
     <link rel="icon" type="image/png" href="/assets/img/logo.ico"/>
-    <link rel="stylesheet" href="/node_modules/sweetalert2/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="/dist/css/sweetalert2.min.css">
     <!-- {{!-- font awesome --}} -->
     
 </head>
 <body>
-  
   <% if ( sessionFlash && sessionFlash.message) { %>
+    <!-- <div class="message-type" data-flashdata="<%= sessionFlash.type %>"></div>
+    <div class="message-title" data-flashdata="<%= sessionFlash.messageTitle %>"></div>
+    <div class="message" data-flashdata="<%= sessionFlash.message %>"></div> -->
     <div class="alert alert-<%= sessionFlash.type %> alert-dismissible fade show" role="alert">
-      <strong><%= sessionFlash.message %></strong>
+      <strong><%= sessionFlash.messageTitle %></strong><%= sessionFlash.message %>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <% } %>
+
     <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
       <div class="container">
         <a class="navbar-brand" href="#"><img src="/assets/img/Asset-1.png" alt="" width="130"></a>
@@ -39,7 +42,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto mr-auto nav-links text-center">
             <li class="nav-item">
-              <a class="nav-link mr-4" href="#">News</a>
+              <a class="nav-link mr-4" href="">News</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Contact</a>
@@ -130,38 +133,43 @@
          <div class="modal-content">
 
              <div class="modal-body">
-                 <div class="text-center mt-2 mb-4">
-                     <a href="index.html" class="text-success">
-                         <span><img src="/assets/img/Asset-1.png" alt="" height="30"></span>
-                     </a>
+                 <div class="text-left mt-2 mb-4">
+                     <h3 class="">Register</h3>
                  </div>
 
                  <form class="pl-3 pr-3" action="/auth/signup" method="POST">
 
-                  <div class="form-row">
+                  <div class="form-row mt-5">
                      <div class="form-group col-md-6">
                          <label for="username">Username</label>
                          <input class="form-control font-weight-bold" type="text" id="username"
-                             required="" placeholder="Enter your username" name="usernamePengguna" minlength="8">
+                             required="" placeholder="Enter your username" name="usernamePengguna" autocomplete="on">
                      </div>
                      <div class="form-group col-md-6">
                          <label for="namaPengguna">Nama</label>
                          <input class="form-control" type="name" id="namaPengguna"
-                             required="" placeholder="Enter your Name" name="namaPengguna">
+                             required="" placeholder="Enter your Name" name="namaPengguna" title="Isi dengan huruf saja" autocomplete="off">
                      </div>
                     </div>
 
                      <div class="form-group">
                          <label for="emailPengguna">Email address</label>
                          <input class="form-control" type="email" id="emailPengguna"
-                             required="" placeholder="xxxx@gmail.com" name="emailPengguna">
+                             required="" placeholder="xxxx@gmail.com" name="emailPengguna" autocomplete="off">
                      </div>
 
-                     <div class="form-group">
+                     <div class="form-row">
+                     <div class="form-group col-md-6">
                          <label for="passwordPengguna">Password</label>
                          <input class="form-control" type="password" required=""
                              id="passwordPengguna" placeholder="Enter your password" name="passwordPengguna">
                      </div>
+                     <div class="form-group col-md-6">
+                         <label for="confirmPassword">Confirm Password</label>
+                         <input class="form-control" type="password" required=""
+                             id="confirmPassword" placeholder="Repeat your password" name="confirmPassword">
+                     </div>
+                    </div>
 
                      <div class="form-group">
                          <div class="custom-control custom-checkbox">
